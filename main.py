@@ -1,6 +1,6 @@
 import os
 import discord
-import re
+from discord.ext import commands
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -8,24 +8,24 @@ load_dotenv()
 intents = discord.Intents.default()
 intents.message_content = True
 
-client = discord.Client(intents=intents)
+bot = commands.Bot(command_prefix='!', intents=intents)
 
-@client.event
+@bot.event
 async def on_ready():
-    print(f'{client.user} has connected to Discord!')
+    print(f'{bot.user} has connected to Discord!')
 
-@client.event
-async def on_message(message):
-    if message.author == client.user:
-        return
+@bot.command(name='unexpo')
+async def unexpo(ctx):
+    response = f"Hola {ctx.author.mention}! Tuetudiate en el poli?"
+    await ctx.send(response)
 
-    if re.search(r'\bunexpo\b', message.content, re.IGNORECASE):
-        response = f"Hola {message.author.mention}! Tuetudiate en el poli?"
-        await message.channel.send(response)
+@bot.command(name='exercism')
+async def exercism(ctx):
+    await ctx.send("The exercism command is not implemented yet.")
 
 token = os.getenv('DISCORD_BOT_TOKEN')
 
 if token is None:
     raise ValueError("No token found. Make sure to set the DISCORD_BOT_TOKEN environment variable.")
 
-client.run(token)
+bot.run(token)
