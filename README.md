@@ -10,7 +10,9 @@ A bot for TINAJA Ingenieria Discord server, written in Python.
 
 ## Docker installation
 - Build docker container
+
 `docker build -t tinaja-bot .`
 - Create a new `.env` file using `env.sample` as a template to set the required credentials.
 - Run docker container passing your env file:
+
 `docker run -it --env-file .env tinaja-bot`
