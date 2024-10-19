@@ -1,7 +1,7 @@
 # Tinaja-bot
 A bot for TINAJA Ingenieria Discord server, written in Python.
 
-## Manual installation
+## Run manually
 - Install dependencies
 ```bash
 pip install --user -r requirements.txt
@@ -12,7 +12,7 @@ pip install --user -r requirements.txt
 python main.py
 ```
 
-## Docker installation
+## Docker build and run
 - Build docker container
 ```bash
 docker build -t tinaja-bot .
