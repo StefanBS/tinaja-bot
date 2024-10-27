@@ -1,0 +1,24 @@
+name: deploy-to-oracle
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Connect to VPN
+      uses: egor-tensin/setup-wireguard@v1.2.0
+      with:
+        endpoint: ${{ vars.VPN_ENDPOINT }}
+        endpoint_public_key: ${{ vars.VPN_SERVER_PUBLIC_KEY }}
+        ips: ${{ vars.VPN_CLIENT_IP }}
+        allowed_ips: ${{ vars.VPN_ALLOWED_IPS }}
+        private_key: ${{ secrets.VPN_CLIENT_PRIVATE_KEY }}
+
+    - name: Test VPN
+      run: ping -c 3 192.168.1.1
