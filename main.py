@@ -2,9 +2,9 @@ import os
 import discord
 import aiohttp
 from discord.ext import commands
-from discord.ext.prometheus import PrometheusCog
-from prometheus_client import start_http_server, Gauge
+from prometheus_client import Gauge, generate_latest
 from dotenv import load_dotenv
+from aiohttp import web
 
 load_dotenv()
 
@@ -13,14 +13,25 @@ intents.message_content = True
 intents.members = True
 intents.presences = True  # Required for online status tracking
 
-# Start the Prometheus metrics server
-start_http_server(8000)
-
 bot = commands.Bot(command_prefix='!', intents=intents)
 
 # Define Prometheus metrics
 total_users = Gauge('discord_total_users', 'Total number of users registered in the Discord server')
 online_users = Gauge('discord_online_users', 'Total number of online users in the Discord server')
+
+async def metrics_handler(request):
+    """Handler for /metrics endpoint"""
+    return web.Response(body=generate_latest(), content_type='text/plain')
+
+async def start_metrics_server():
+    """Start the metrics HTTP server"""
+    app = web.Application()
+    app.router.add_get('/metrics', metrics_handler)
+    runner = web.AppRunner(app)
+    await runner.setup()
+    site = web.TCPSite(runner, 'localhost', 8000)
+    await site.start()
+    print(f"Metrics server started at http://localhost:8000/metrics")
 
 async def update_metrics():
     """Update Prometheus metrics with current Discord stats"""
@@ -34,9 +45,7 @@ async def update_metrics():
 @bot.event
 async def on_ready():
     print(f'{bot.user} has connected to Discord!')
-    # Add the Prometheus cog
-    await bot.add_cog(PrometheusCog(bot))
-    # Initial metrics update
+    await start_metrics_server()
     await update_metrics()
 
 @bot.event
