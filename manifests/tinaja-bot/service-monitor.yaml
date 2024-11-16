@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: discord-bot
+  labels:
+    release: kube-prometheus-slack
+spec:
+  selector:
+    matchLabels:
+      app: discord-bot
+  endpoints:
+  - port: metrics
+    interval: 30s
+    path: /metrics
