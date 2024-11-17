@@ -3,7 +3,7 @@ kind: ServiceMonitor
 metadata:
   name: discord-bot
   labels:
-    release: kube-prometheus-slack
+    release: kube-prometheus-stack
 spec:
   selector:
     matchLabels:
