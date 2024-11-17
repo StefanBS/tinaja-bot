@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: discord-bot
-        image: ghcr.io/stefanbs/tinaja-bot/tinaja-bot:9015e888dc22c78477ad6e85ab85220ea351d0ef
+        image: ghcr.io/stefanbs/tinaja-bot/tinaja-bot:06ebb91827ed3a1a43a288b62a20d566f72ca254
         ports:
         - containerPort: 8000
           name: metrics
