@@ -29,7 +29,7 @@ async def start_metrics_server():
     app.router.add_get('/metrics', metrics_handler)
     runner = web.AppRunner(app)
     await runner.setup()
-    site = web.TCPSite(runner, 'localhost', 8000)
+    site = web.TCPSite(runner, '0.0.0.0', 8000)
     await site.start()
     print(f"Metrics server started at http://localhost:8000/metrics")
 
