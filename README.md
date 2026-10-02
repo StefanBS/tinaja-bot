@@ -13,14 +13,14 @@ docker run -it --env-file .env ghcr.io/stefanbs/tinaja-bot/tinaja-bot
 ```
 
 ## Run manually
-- Install dependencies
+- Install [uv](https://docs.astral.sh/uv/getting-started/installation/), then install the dependencies (uv fetches Python 3.14 if you don't have it)
 ```bash
-pip install --user -r requirements.txt
+uv sync
 ```
 - Create a new `.env` file using `env.sample` as a template to set the required credentials.
 - Run the bot
 ```bash
-python -m tinaja_bot
+uv run python -m tinaja_bot
 ```
 
 ## Local Docker build and run
@@ -35,11 +35,14 @@ docker run -it --env-file .env tinaja-bot
 ```
 
 ## Run tests
-- Install dependencies, including development ones
 ```bash
-pip install --user -r requirements.txt -r requirements-dev.txt
+uv run pytest
 ```
-- Run the test suite
+
+## Manage dependencies
+Dependencies are declared in `pyproject.toml` and pinned in `uv.lock`.
 ```bash
-pytest
+uv add <package>          # add a runtime dependency
+uv add --dev <package>    # add a development dependency
+uv lock --upgrade         # upgrade everything to the latest versions
 ```
