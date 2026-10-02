@@ -25,8 +25,7 @@ async def test_serves_census_metrics(bot):
         async with session.get(url) as response:
             body = await response.text()
     assert response.status == 200
-    assert 'discord_total_users' in body
-    assert 'discord_online_users' in body
+    assert 'discord_server_members' in body
 
 
 async def test_close_frees_metrics_port():

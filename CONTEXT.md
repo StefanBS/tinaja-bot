@@ -9,7 +9,7 @@ A Discord guild the bot has joined; in practice the TINAJA Ingeniería server.
 _Avoid_: Guild (except when talking about the Discord library), channel
 
 **Member**:
-A Discord account that belongs to a Server.
+A person's Discord account that belongs to a Server. Bot accounts are not Members.
 _Avoid_: User
 
 **Online member**:
