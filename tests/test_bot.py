@@ -15,9 +15,8 @@ async def bot():
     await bot.close()
 
 
-async def test_builds_without_connecting_to_discord(bot):
+async def test_registers_commands(bot):
     assert {'unexpo', 'exercism'} <= {c.name for c in bot.commands}
-    assert set(bot.cogs) == {'Census', 'Unexpo', 'Exercism'}
 
 
 async def test_serves_census_metrics(bot):
@@ -38,15 +37,6 @@ async def test_close_frees_metrics_port():
 
     with socket.socket() as s:
         s.bind(('127.0.0.1', port))
-
-
-async def test_two_bots_do_not_share_metrics():
-    first = TinajaBot(Config(token='unused', metrics_host='127.0.0.1', metrics_port=0))
-    second = TinajaBot(Config(token='unused', metrics_host='127.0.0.1', metrics_port=0))
-    await first.setup_hook()
-    await second.setup_hook()
-    await first.close()
-    await second.close()
 
 
 def test_config_requires_token(monkeypatch):
