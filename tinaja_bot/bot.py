@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 from prometheus_client import CollectorRegistry
 
-from tinaja_bot.cogs.census import Census
+from tinaja_bot.census import ServerCensus
 from tinaja_bot.cogs.exercism import Exercism
 from tinaja_bot.cogs.unexpo import Unexpo
 from tinaja_bot.metrics import MetricsEndpoint
@@ -22,9 +22,9 @@ class TinajaBot(commands.Bot):
 
     async def setup_hook(self):
         # Runs once before connecting, unlike on_ready which fires on every reconnect
-        await self.add_cog(Census(self))
         await self.add_cog(Unexpo())
         await self.add_cog(Exercism())
+        self.registry.register(ServerCensus(lambda: self.guilds))
         await self.metrics_endpoint.start()
 
     async def close(self):
