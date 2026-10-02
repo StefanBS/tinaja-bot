@@ -12,7 +12,7 @@ class Config:
     def from_env(cls):
         token = os.getenv('DISCORD_BOT_TOKEN')
         if token is None:
-            raise ValueError("No token found. Make sure to set the DISCORD_BOT_TOKEN environment variable.")
+            raise ValueError('No token found. Make sure to set the DISCORD_BOT_TOKEN environment variable.')
         return cls(
             token=token,
             metrics_host=os.getenv('METRICS_HOST', cls.metrics_host),

@@ -25,13 +25,19 @@ def sample(registry, metric, server_id):
 
 
 def test_counts_people_and_treats_idle_and_dnd_as_online():
-    registry = census_of(server(1, 'server-1', [
-        member(discord.Status.online),
-        member(discord.Status.idle),
-        member(discord.Status.dnd),
-        member(discord.Status.offline),
-        member(discord.Status.online, bot=True),
-    ]))
+    registry = census_of(
+        server(
+            1,
+            'server-1',
+            [
+                member(discord.Status.online),
+                member(discord.Status.idle),
+                member(discord.Status.dnd),
+                member(discord.Status.offline),
+                member(discord.Status.online, bot=True),
+            ],
+        )
+    )
 
     assert sample(registry, 'discord_server_members', 1) == 4
     assert sample(registry, 'discord_server_online_members', 1) == 3

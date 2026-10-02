@@ -39,6 +39,13 @@ docker run -it --env-file .env tinaja-bot
 uv run pytest
 ```
 
+## Lint and format
+```bash
+uv run ruff check .       # lint (add --fix to apply safe fixes)
+uv run ruff format .      # format
+```
+CI fails if either reports a problem.
+
 ## Manage dependencies
 Dependencies are declared in `pyproject.toml` and pinned in `uv.lock`.
 ```bash

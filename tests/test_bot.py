@@ -20,10 +20,9 @@ async def test_registers_commands(bot):
 
 
 async def test_serves_census_metrics(bot):
-    url = f"http://127.0.0.1:{bot.metrics_endpoint.port}/metrics"
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url) as response:
-            body = await response.text()
+    url = f'http://127.0.0.1:{bot.metrics_endpoint.port}/metrics'
+    async with aiohttp.ClientSession() as session, session.get(url) as response:
+        body = await response.text()
     assert response.status == 200
     assert 'discord_server_members' in body
 
