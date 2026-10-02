@@ -23,7 +23,7 @@ class MetricsEndpoint:
         await self._runner.setup()
         site = web.TCPSite(self._runner, self._host, self._port)
         await site.start()
-        print(f"Metrics server started at http://{self._host}:{self.port}/metrics")
+        print(f'Metrics server started at http://{self._host}:{self.port}/metrics')
 
     async def stop(self):
         if self._runner is not None:
