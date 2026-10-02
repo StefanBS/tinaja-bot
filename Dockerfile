@@ -1,5 +1,5 @@
 # first stage
-FROM python:3.12 AS builder
+FROM python:3.14 AS builder
 WORKDIR /code
 COPY requirements.txt ./
 
@@ -7,7 +7,7 @@ COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt --target /code/dependencies
 
 # second unnamed stage
-FROM python:3.12-slim
+FROM python:3.14-slim
 
 # Create a non-root user
 RUN addgroup --system --gid 1001 app && \
