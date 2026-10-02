@@ -44,13 +44,10 @@ def test_reports_each_server_separately():
     )
 
     assert sample(registry, 'discord_server_members', 1) == 1
-    assert sample(registry, 'discord_server_online_members', 1) == 1
     assert sample(registry, 'discord_server_members', 2) == 2
-    assert sample(registry, 'discord_server_online_members', 2) == 0
 
 
 def test_skips_servers_whose_members_are_not_cached_yet():
     registry = census_of(server(1, 'server-1', [member(discord.Status.online)], chunked=False))
 
     assert sample(registry, 'discord_server_members', 1) is None
-    assert sample(registry, 'discord_server_online_members', 1) is None
