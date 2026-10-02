@@ -18,10 +18,10 @@ WORKDIR /code
 
 # copy only the dependencies installation from the 1st stage image
 COPY --from=builder --chown=app:app /code/dependencies /code/dependencies
-COPY --chown=app:app *.py .
+COPY --chown=app:app tinaja_bot/ ./tinaja_bot/
 
 USER app
 
 ENV PYTHONPATH=/code/dependencies
 
-ENTRYPOINT [ "python", "main.py" ] 
+ENTRYPOINT [ "python", "-m", "tinaja_bot" ] 

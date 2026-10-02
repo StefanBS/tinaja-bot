@@ -20,7 +20,7 @@ pip install --user -r requirements.txt
 - Create a new `.env` file using `env.sample` as a template to set the required credentials.
 - Run the bot
 ```bash
-python main.py
+python -m tinaja_bot
 ```
 
 ## Local Docker build and run
@@ -32,4 +32,14 @@ docker build -t tinaja-bot .
 - Run docker container passing your env file:
 ```bash
 docker run -it --env-file .env tinaja-bot
+```
+
+## Run tests
+- Install dependencies, including development ones
+```bash
+pip install --user -r requirements.txt -r requirements-dev.txt
+```
+- Run the test suite
+```bash
+pytest
 ```
